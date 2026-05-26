@@ -1,4 +1,4 @@
-# 🧠 AI Mood Journal
+# 🧠 AI Mood Journal 
 
 A **CLI-based AI-powered mood journal** built with Python.  
 Write about your day, and Google Gemini AI analyses your mood, detects emotions, gives you a wellness score, and tracks your mental wellbeing over time — all from your terminal.
