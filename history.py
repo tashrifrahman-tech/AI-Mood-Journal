@@ -56,7 +56,7 @@ def _bar_chart(scores: list[float], dates: list[str]) -> Text:
         for score in scores:
             filled = score >= threshold
             color  = data.score_to_color(score)
-            t.append("  █  " if filled else "     ", style=color if filled else "")
+            t.append("    " if filled else "     ", style=color if filled else "")
         t.append("\n")
 
     # X-axis
@@ -72,7 +72,7 @@ def _bar_chart(scores: list[float], dates: list[str]) -> Text:
 # ── Views ──────────────────────────────────────────────────────────────────────
 
 def view_timeline(n: int = 7):
-    utils.header("📈  Mood Timeline", f"Last {n} entries", "blue")
+    utils.header("  Mood Timeline", f"Last {n} entries", "blue")
     recent = data.get_recent_entries(n)
 
     if not recent:
@@ -94,7 +94,7 @@ def view_timeline(n: int = 7):
         score    = entry.get("score", 0.0)
         emotions = ", ".join(entry.get("emotions", []))
         summary  = entry.get("summary", "")[:55] + ("…" if len(entry.get("summary","")) > 55 else "")
-        emoji    = data.MOOD_EMOJI.get(mood, "💭")
+        emoji    = data.MOOD_EMOJI.get(mood, )
         friendly = datetime.strptime(date_str, "%Y-%m-%d").strftime("%a, %d %b")
 
         table.add_row(
@@ -115,7 +115,7 @@ def view_timeline(n: int = 7):
 
 
 def view_chart(n: int = 7):
-    utils.header("📊  Mood Bar Chart", f"Last {n} entries", "magenta")
+    utils.header("  Mood Bar Chart", f"Last {n} entries", "magenta")
     recent = list(reversed(data.get_recent_entries(n)))
 
     if not recent:
@@ -135,7 +135,7 @@ def view_chart(n: int = 7):
 
 
 def view_stats():
-    utils.header("📊  All-Time Statistics", "", "green")
+    utils.header("  All-Time Statistics", "", "green")
     stats  = data.get_stats()
     streak = data.get_streak()
 
@@ -154,9 +154,9 @@ def view_stats():
     t1.append(f"{stats['highest']:.1f} / 10\n", style="bold bright_green")
     t1.append(f"  Lowest Score     ", style="dim")
     t1.append(f"{stats['lowest']:.1f} / 10\n", style="bold red")
-    t1.append(f"\n  🔥 Current Streak  ", style="dim")
+    t1.append(f"\n   Current Streak  ", style="dim")
     t1.append(f"{streak['current']} day(s)\n", style="bold yellow")
-    t1.append(f"  🏆 Longest Streak  ", style="dim")
+    t1.append(f"   Longest Streak  ", style="dim")
     t1.append(f"{streak['longest']} day(s)\n", style="bold yellow")
 
     t2 = Text()
@@ -164,7 +164,7 @@ def view_stats():
     top_emotion = stats["top_emotion"]
     color       = "cyan"
     t2.append(f"\n  Most Common Mood\n", style="dim")
-    t2.append(f"  {data.MOOD_EMOJI.get(top_mood[0], '💭')} {top_mood[0].upper()}  ", style=f"bold {color}")
+    t2.append(f"  {data.MOOD_EMOJI.get(top_mood[0], )} {top_mood[0].upper()}  ", style=f"bold {color}")
     t2.append(f"({top_mood[1]}x)\n\n", style="dim")
     t2.append(f"  Top Emotions\n", style="dim")
     for emo, count in stats["all_emotions"]:
@@ -172,15 +172,15 @@ def view_stats():
         t2.append(f"  {count}x\n", style="dim")
 
     console.print(Columns([
-        Panel(t1, title="[bold green]📈 Numbers[/]",  border_style="green",  expand=True),
-        Panel(t2, title="[bold cyan]💭 Moods[/]",     border_style="cyan",   expand=True),
+        Panel(t1, title="[bold green] Numbers[/]",  border_style="green",  expand=True),
+        Panel(t2, title="[bold cyan] Moods[/]",     border_style="cyan",   expand=True),
     ]))
 
     utils.pause()
 
 
 def view_all_entries():
-    utils.header("📚  All Journal Entries", "", "cyan")
+    utils.header("  All Journal Entries", "", "cyan")
     entries = data.get_all_entries()
 
     if not entries:
@@ -200,7 +200,7 @@ def view_all_entries():
         mood   = e.get("mood", "—")
         score  = e.get("score", 5.0)
         emot   = ", ".join(e.get("emotions", []))
-        emoji  = data.MOOD_EMOJI.get(mood, "💭")
+        emoji  = data.MOOD_EMOJI.get(mood, )
         dstr   = datetime.strptime(date_str, "%Y-%m-%d").strftime("%a, %d %b %Y")
 
         table.add_row(
@@ -219,15 +219,15 @@ def view_all_entries():
 
 def menu():
     while True:
-        utils.header("📈  Mood History", "Charts, stats and trends", "blue")
+        utils.header("  Mood History", "Charts, stats and trends", "blue")
         console.print()
-        console.print("  [bold cyan]1.[/] 📅  Timeline  — Last 7 entries")
-        console.print("  [bold cyan]2.[/] 📅  Timeline  — Last 14 entries")
-        console.print("  [bold cyan]3.[/] 📊  Bar Chart — Last 7 entries")
-        console.print("  [bold cyan]4.[/] 📊  Bar Chart — Last 14 entries")
-        console.print("  [bold cyan]5.[/] 📚  All Entries")
-        console.print("  [bold cyan]6.[/] 🏆  All-Time Stats")
-        console.print("  [bold cyan]0.[/] ← Back")
+        console.print("  [bold cyan]1.[/]   Timeline  — Last 7 entries")
+        console.print("  [bold cyan]2.[/]   Timeline  — Last 14 entries")
+        console.print("  [bold cyan]3.[/]   Bar Chart — Last 7 entries")
+        console.print("  [bold cyan]4.[/]   Bar Chart — Last 14 entries")
+        console.print("  [bold cyan]5.[/]   All Entries")
+        console.print("  [bold cyan]6.[/]   All-Time Stats")
+        console.print("  [bold cyan]0.[/]   Back")
 
         choice = utils.prompt("Choice")
         if   choice == "1": view_timeline(7);  utils.pause()
