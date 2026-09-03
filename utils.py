@@ -10,7 +10,7 @@ from rich         import box
 
 console = Console()
 
-APP_TITLE = "🧠  A I   M O O D   J O U R N A L"
+APP_TITLE = "  A I   M O O D   J O U R N A L"
 
 
 # ── Generic UI helpers ─────────────────────────────────────────────────────────
@@ -107,7 +107,7 @@ def friendly_date(date_str: str) -> str:
 def score_bar(score: float, width: int = 20) -> str:
     """Return a colored ASCII progress bar for a mood score (1-10)."""
     filled = round((score / 10) * width)
-    bar    = "█" * filled + "░" * (width - filled)
+    bar    =  * filled +  * (width - filled)
     if score >= 8:
         color = "bright_green"
     elif score >= 6:
@@ -123,7 +123,7 @@ def score_bar(score: float, width: int = 20) -> str:
 
 def mood_badge(mood: str, color: str) -> str:
     from data import MOOD_EMOJI
-    emoji = MOOD_EMOJI.get(mood, "💭")
+    emoji = MOOD_EMOJI.get(mood, )
     return f"[bold {color}]{emoji}  {mood.upper()}[/bold {color}]"
 
 
