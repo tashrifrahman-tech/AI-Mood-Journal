@@ -2,8 +2,8 @@
 main.py — AI Mood Journal entry point.
 
 Tabs:
-  1 → ✍️  Journal   (write entry, read past entries, delete)
-  2 → 📈  History   (timeline, charts, stats)
+  1 →   Journal   (write entry, read past entries, delete)
+  2 →   History   (timeline, charts, stats)
 """
 
 from datetime import date
@@ -33,13 +33,13 @@ def _dashboard():
 
     # ── Today panel ──
     t = Text()
-    t.append(f"\n  📅  {utils.friendly_date(today)}\n\n", style="bold white")
+    t.append(f"\n    {utils.friendly_date(today)}\n\n", style="bold white")
 
     if entry:
         color = entry.get("color", "cyan")
         mood  = entry.get("mood", "—")
         score = entry.get("score", 5.0)
-        emoji = data.MOOD_EMOJI.get(mood, "💭")
+        emoji = data.MOOD_EMOJI.get(mood,)
         t.append("  Today's mood    ", style="dim")
         t.append(f"{emoji} {mood.upper()}\n", style=f"bold {color}")
         t.append("  Score           ", style="dim")
@@ -51,9 +51,9 @@ def _dashboard():
         t.append("  [dim]No entry yet today.[/dim]\n")
         t.append("  [bold cyan]→ Press 1 to write today's entry[/bold cyan]\n")
 
-    t.append(f"\n  🔥 Streak      ", style="dim")
+    t.append(f"\n   Streak      ", style="dim")
     t.append(f"{streak.get('current', 0)} day(s)", style="bold yellow")
-    t.append(f"   🏆 Best: {streak.get('longest', 0)} day(s)\n", style="dim")
+    t.append(f"    Best: {streak.get('longest', 0)} day(s)\n", style="dim")
 
     today_panel = Panel(t, title="[bold cyan]Today[/]", border_style="cyan", expand=True)
 
@@ -106,7 +106,7 @@ def main():
     while True:
         utils.clear()
         console.print(Panel(
-            Text("🧠  AI  MOOD  JOURNAL", justify="center", style="bold cyan"),
+            Text("  AI  MOOD  JOURNAL", justify="center", style="bold cyan"),
             subtitle="[dim]Powered by Google Gemini · Your private, AI-guided journal[/dim]",
             border_style="cyan",
             expand=True,
@@ -116,9 +116,9 @@ def main():
 
         console.print()
         console.print(
-            "   [bold cyan][ 1 ]  ✍️   Journal[/]"
+            "   [bold cyan][ 1 ]     Journal[/]"
             "        "
-            "[bold blue][ 2 ]  📈  History & Charts[/]"
+            "[bold blue][ 2 ]    History & Charts[/]"
         )
         console.print("   [dim]0.  Exit[/]")
 
@@ -128,7 +128,7 @@ def main():
         elif choice == "2": history.menu()
         elif choice == "0":
             utils.clear()
-            console.print("\n  [bold cyan]Take care of yourself. See you tomorrow. 🌙[/]\n")
+            console.print("\n  [bold cyan]Take care of yourself. See you tomorrow. [/]\n")
             break
         else:
             utils.error("Enter 1, 2, or 0.")
