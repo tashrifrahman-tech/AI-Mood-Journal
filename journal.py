@@ -28,7 +28,7 @@ console = Console()
 def write_entry():
     today = utils.today_str()
     utils.header(
-        "✍️   Write Today's Journal",
+        "   Write Today's Journal",
         f"  {utils.friendly_date(today)}",
         "cyan",
     )
@@ -44,7 +44,7 @@ def write_entry():
     if ai.is_demo_mode():
         utils.info("Running in DEMO MODE (no API key). Add GEMINI_API_KEY to .env for full AI analysis.")
     else:
-        utils.info("AI analysis powered by Google Gemini ✨")
+        utils.info("AI analysis powered by Google Gemini ")
 
     console.print()
     text = utils.multiline_input("How was your day? Write freely — no judgment here.")
@@ -56,7 +56,7 @@ def write_entry():
 
     # ── AI Analysis ──
     console.print()
-    with console.status("[bold cyan]🧠  Analysing your mood with AI...[/]", spinner="dots"):
+    with console.status("[bold cyan]  Analysing your mood with AI...[/]", spinner="dots"):
         time.sleep(0.5)   # small delay for UX
         result = ai.analyze(text)
 
@@ -98,10 +98,10 @@ def _show_analysis(result: dict, date_str: str):
     t.append(f"\n\n  Summary  ", style="dim")
     t.append(result.get("summary", ""), style="white")
 
-    t.append(f"\n\n  💡 Tip   ", style="dim")
+    t.append(f"\n\n   Tip   ", style="dim")
     t.append(result.get("suggestion", ""), style=f"italic {color}")
 
-    t.append(f"\n\n  🔥 Streak  ", style="dim")
+    t.append(f"\n\n   Streak  ", style="dim")
     t.append(f"{streak['current']} day(s)  ", style="bold yellow")
     t.append(f"  Best: {streak['longest']} day(s)", style="dim")
     t.append("\n")
@@ -111,7 +111,7 @@ def _show_analysis(result: dict, date_str: str):
 
     console.print(Panel(
         t,
-        title=f"[bold {color}]🧠  AI Mood Analysis — {utils.friendly_date(date_str)}[/]",
+        title=f"[bold {color}]  AI Mood Analysis — {utils.friendly_date(date_str)}[/]",
         border_style=color,
         expand=True,
     ))
@@ -131,7 +131,7 @@ def view_entry(date_str: str = None):
 
     color = entry.get("color", "cyan")
     utils.header(
-        f"📖  Journal Entry",
+        f"  Journal Entry",
         utils.friendly_date(date_str),
         color,
     )
@@ -152,7 +152,7 @@ def view_entry(date_str: str = None):
 # ── Delete entry ───────────────────────────────────────────────────────────────
 
 def delete_entry():
-    utils.header("🗑️   Delete Entry", "", "red")
+    utils.header("   Delete Entry", "", "red")
     date_str = utils.ask_date("Delete entry for date (YYYY-MM-DD)")
 
     entry = data.get_entry(date_str)
@@ -175,12 +175,12 @@ def delete_entry():
 
 def menu():
     while True:
-        utils.header("✍️   Journal", "Write, read, and reflect", "cyan")
+        utils.header("   Journal", "Write, read, and reflect", "cyan")
         console.print()
-        console.print("  [bold cyan]1.[/] ✍️   Write Today's Entry")
-        console.print("  [bold cyan]2.[/] 📖  Read a Past Entry")
-        console.print("  [bold cyan]3.[/] 🗑️   Delete an Entry")
-        console.print("  [bold cyan]0.[/] ← Back")
+        console.print("  [bold cyan]1.[/]    Write Today's Entry")
+        console.print("  [bold cyan]2.[/]   Read a Past Entry")
+        console.print("  [bold cyan]3.[/]    Delete an Entry")
+        console.print("  [bold cyan]0.[/]  Back")
 
         choice = utils.prompt("Choice")
         if   choice == "1": write_entry()
